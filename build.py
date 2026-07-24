@@ -104,29 +104,54 @@ def build_gigs(gigs):
     return "\n".join(out)
 
 
-def build_menu(menu):
+def build_sections(sections):
+    """Menu sections -> HTML. A price of 'market' renders italic; sections
+    may carry a note and may have no items at all (e.g. the sides list)."""
     out = []
-    for sec in menu["sections"]:
+    for sec in sections:
         out.append('        <div class="menu__section">')
         out.append(f'          <h3>{esc(sec["heading"])}</h3>')
-        out.append('          <ul class="menu__list">')
-        for it in sec["items"]:
-            price = it.get("price")
-            if price:
-                row = (
-                    '              <div class="menu__row">'
-                    f'<span class="menu__name">{esc(it["name"])}</span>'
-                    '<span class="menu__dots"></span>'
-                    f'<span class="menu__price">{esc(price)}</span></div>'
-                )
-            else:
-                row = f'              <div class="menu__row"><span class="menu__name">{esc(it["name"])}</span></div>'
-            out.append('            <li class="menu__item">')
-            out.append(row)
-            out.append(f'              <p class="menu__desc">{esc(it["desc"])}</p>')
-            out.append("            </li>")
-        out.append("          </ul>")
+        if sec.get("note"):
+            out.append(f'          <p class="menu__secnote">{esc(sec["note"])}</p>')
+        if sec["items"]:
+            out.append('          <ul class="menu__list">')
+            for it in sec["items"]:
+                price = it.get("price")
+                if price == "market":
+                    price_html = '<span class="menu__price menu__price--mkt">market</span>'
+                elif price:
+                    price_html = f'<span class="menu__price">{esc(price)}</span>'
+                else:
+                    price_html = ""
+                if price_html:
+                    row = (
+                        '              <div class="menu__row">'
+                        f'<span class="menu__name">{esc(it["name"])}</span>'
+                        f'<span class="menu__dots"></span>{price_html}</div>'
+                    )
+                else:
+                    row = f'              <div class="menu__row"><span class="menu__name">{esc(it["name"])}</span></div>'
+                out.append('            <li class="menu__item">')
+                out.append(row)
+                if it.get("desc"):
+                    out.append(f'              <p class="menu__desc">{esc(it["desc"])}</p>')
+                out.append("            </li>")
+            out.append("          </ul>")
         out.append("        </div>")
+    return "\n".join(out)
+
+
+def build_drinks(groups):
+    """The bar list, chalked up in columns on the slate."""
+    out = []
+    for g in groups:
+        out.append('          <div class="chalk">')
+        out.append(f'            <p class="chalk__k">{esc(g["title"])}</p>')
+        out.append('            <ul class="chalk__list">')
+        for item in g["items"]:
+            out.append(f'              <li>{esc(item)}</li>')
+        out.append("            </ul>")
+        out.append("          </div>")
     return "\n".join(out)
 
 
@@ -170,7 +195,7 @@ def build_social(social, reviews):
     return "\n".join(rows)
 
 
-def build_jsonld(site):
+def build_jsonld(site, menu_url=""):
     a = site["address"]
     spec = []
     for h in site["hours"]:
@@ -182,7 +207,7 @@ def build_jsonld(site):
             "opens": f'{h["open"]//60:02d}:{h["open"]%60:02d}',
             "closes": f'{(h["close"]%1440)//60:02d}:{h["close"]%60:02d}',
         })
-    return json.dumps({
+    data = {
         "@context": "https://schema.org",
         "@type": "Restaurant",
         "name": site["name"],
@@ -203,7 +228,10 @@ def build_jsonld(site):
             "reviewCount": site["reviews"]["count"],
         },
         "openingHoursSpecification": spec,
-    }, indent=None)
+    }
+    if menu_url:
+        data["hasMenu"] = menu_url
+    return json.dumps(data, indent=None)
 
 
 # ---------------------------------------------------------------- build
@@ -255,7 +283,7 @@ def build():
         "menu_button": menu_button,
         "board_html": build_board(site["board"]),
         "gigs_html": build_gigs(site["gigs"]),
-        "menu_html": build_menu(menu),
+        "menu_html": build_sections(menu["sections"]),
         "story_html": story_html,
         "parties_html": parties_html,
         "hours_html": build_hours(site["hours"]),
@@ -263,24 +291,40 @@ def build():
         "shot_story": build_shot(site["shots"]["story"]),
         "shot_parties": build_shot(site["shots"]["parties"]),
         "feed_html": build_feed(site["shots"]["feed"]),
-        "jsonld": build_jsonld(site),
+        "jsonld": build_jsonld(site, menu.get("full_menu_url", "")),
         "js_data": js_data,
         "year": datetime.now().year,
     }
 
     page = render((TEMPLATES / "index.html").read_text(), values)
 
+    mp = menu["page"]
+    menu_values = dict(values)
+    menu_values.update({
+        "page_tagline": esc(mp["tagline"]),
+        "fine_print": esc(mp["fine_print"]),
+        "market_note": esc(mp["market_note"]),
+        "menu_page_html": build_sections(mp["food"]),
+        "drinks_heading": esc(mp["drinks"]["heading"]),
+        "drinks_sub": esc(mp["drinks"]["sub"]),
+        "drinks_note": esc(mp["drinks"]["note"]),
+        "drinks_html": build_drinks(mp["drinks"]["groups"]),
+    })
+    menu_page = render((TEMPLATES / "menu.html").read_text(), menu_values)
+
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True)
     (DIST / "index.html").write_text(page)
+    (DIST / "menu").mkdir()
+    (DIST / "menu" / "index.html").write_text(menu_page)
     for sub in ("css", "js", "img", "fonts"):
         src = STATIC / sub
         if src.exists():
             shutil.copytree(src, DIST / sub)
 
-    kb = len(page.encode()) / 1024
-    print(f"built dist/index.html  ({kb:.1f} KB)")
+    print(f"built dist/index.html       ({len(page.encode()) / 1024:.1f} KB)")
+    print(f"built dist/menu/index.html  ({len(menu_page.encode()) / 1024:.1f} KB)")
 
     todos = collect_todos(site) + collect_todos(menu)
     if todos:

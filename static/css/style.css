@@ -353,6 +353,28 @@ html{scrollbar-color:var(--gold-dk) var(--pitch)}
 .hero__pane--r{right:calc(var(--pad) * .4)}
 @media (min-width:1200px){ .hero__pane{display:block} }
 
+/* the pints are alive — bubbles rise, the head sways, slowly */
+.hero__pane .bub{animation:bubrise 5.5s linear infinite}
+.hero__pane .bub--2{animation-delay:1.7s}
+.hero__pane .bub--3{animation-delay:3.1s}
+.hero__pane .bub--4{animation-delay:4.4s}
+.hero__pane--r .bub{animation-duration:6.3s}
+.hero__pane--r .bub--2{animation-delay:2.2s}
+.hero__pane--r .bub--3{animation-delay:3.8s}
+.hero__pane--r .bub--4{animation-delay:.9s}
+@keyframes bubrise{
+  0%{transform:translateY(0);opacity:0}
+  10%{opacity:.7}
+  80%{opacity:.55}
+  100%{transform:translateY(-86px);opacity:0}
+}
+.hero__pane .foam{animation:foamsway 7s ease-in-out infinite alternate}
+@keyframes foamsway{from{transform:translateX(-1.5px)}to{transform:translateX(1.5px)}}
+
+/* lamplight breathes, barely */
+.hero::before{animation:lamp 9s ease-in-out infinite alternate}
+@keyframes lamp{from{opacity:.82}to{opacity:1}}
+
 .hero__meta{
   max-width:900px;margin:2.2rem auto 0;
   display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem 1.1rem;
@@ -542,6 +564,12 @@ html{scrollbar-color:var(--gold-dk) var(--pitch)}
 .menu__price{font-family:var(--mono);font-size:.9rem;flex:none}
 .menu__desc{margin:.3rem 0 0;font-size:.92rem;color:rgba(36,23,8,.66)}
 
+.menu__secnote{
+  text-align:center;font-size:.85rem;color:rgba(36,23,8,.6);
+  max-width:60ch;margin:-.6rem auto 1.2rem;
+}
+.menu__price--mkt{font-style:italic;font-size:.78rem;opacity:.7;letter-spacing:.04em}
+
 .menu__foot{margin-top:2.4rem;text-align:center;position:relative}
 .menu__card .btn--gold{
   background:linear-gradient(180deg,#2E1B0A,#150C04);color:var(--paper);border-color:#2E1B0A;
@@ -552,6 +580,44 @@ html{scrollbar-color:var(--gold-dk) var(--pitch)}
   display:block;margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;
   letter-spacing:.06em;color:rgba(36,23,8,.55);
 }
+.menu__note--fine{font-size:.62rem;max-width:72ch;margin-inline:auto;opacity:.8}
+
+/* ---- the full menu page ------------------------------------ */
+.mhead{padding-block:clamp(2.4rem,5vw,4rem) 0;text-align:center}
+/* the tall page card keeps the paper grain but loses the big glare,
+   which reads as a bright band at this height */
+.menu--page .menu__card{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.28 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23p)'/%3E%3C/svg%3E"),
+    radial-gradient(90% 14% at 50% 0%, rgba(255,255,255,.4), transparent 70%),
+    radial-gradient(60% 10% at 85% 100%, rgba(160,120,60,.14), transparent 70%),
+    var(--paper);
+}
+.mhead .lede{margin-inline:auto}
+.menu--page{padding-block:clamp(2rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem)}
+.menu--page .menu__section + .menu__section{margin-top:clamp(2.2rem,4vw,3.2rem)}
+.menu--page .menu__section h3{
+  font-size:.78rem;letter-spacing:.3em;
+  display:flex;align-items:center;gap:1rem;justify-content:center;
+}
+.menu--page .menu__section h3::before,
+.menu--page .menu__section h3::after{
+  content:"";flex:0 1 90px;height:1px;background:rgba(36,23,8,.25);
+}
+.board--drinks{padding-block:clamp(1.5rem,3vw,2.5rem) clamp(2rem,4vw,3rem)}
+.board__note{
+  text-align:center;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
+  color:var(--cream-48);margin:1.6rem 0 0;
+}
+.chalk__list{list-style:none;margin:0;padding:0}
+.chalk__list li{
+  padding:.42rem 0;color:var(--cream-72);font-size:.93rem;
+  border-top:1px dashed rgba(244,237,221,.09);
+}
+.chalk__list li:first-child{border-top:0}
+.mcta{padding-block:clamp(2rem,5vw,3.5rem) clamp(3rem,6vw,4.5rem)}
+.mcta__in{text-align:center;margin-top:2.4rem}
+.mcta__in .h-sect{margin-bottom:1.6rem}
 
 /* ============================================================
    STORY
