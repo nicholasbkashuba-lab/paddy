@@ -14,6 +14,9 @@ Python 3.9+, standard library only.
 All content lives in `content/site.json` and `content/menu.json`. Change a value,
 run `build.py`, push. Vercel rebuilds on push to `main`.
 
+Fonts are self-hosted in `static/fonts/` (latin-subset woff2) — the site makes no
+third-party requests at all.
+
 Hours are minutes from midnight — `690` is 11:30am. A value above 1440 means after
 midnight, so `1560` is a 2am close.
 

@@ -3,7 +3,26 @@
    Direction: Victorian Irish pub signwriting. Gold leaf on bottle
    green, etched-glass arches, a slate specials board, an aged menu
    card. The page is the decoration, because there are no photos yet.
+
+   Fonts are self-hosted in /fonts — no third-party requests.
    ============================================================ */
+
+@font-face{
+  font-family:'Alfa Slab One';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/fonts/alfa-slab-one-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:400 700;font-display:swap;
+  src:url('/fonts/archivo-latin-var.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/fonts/dm-mono-400-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;
+  src:url('/fonts/dm-mono-500-latin.woff2') format('woff2');
+}
 
 :root{
   /* ground — layered dark greens, not flat black */
@@ -21,6 +40,7 @@
   --gold:     #D4A537;
   --gold-lt:  #F3E0A4;
   --gold-dk:  #8A6A1E;
+  --gold-08:  rgba(212,165,55,.08);
   --gold-15:  rgba(212,165,55,.15);
   --gold-30:  rgba(212,165,55,.30);
   --gold-55:  rgba(212,165,55,.55);
@@ -46,7 +66,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -63,6 +83,7 @@ body{
     radial-gradient(90% 60% at 50% 105%, rgba(41,163,67,.09), transparent 60%),
     var(--pitch);
   background-attachment:fixed;
+  overflow-x:clip;
 }
 
 /* film-grain / plaster texture over everything ---------------- */
@@ -77,24 +98,56 @@ body::before{
   background:radial-gradient(120% 90% at 50% 40%, transparent 52%, rgba(0,0,0,.55) 100%);
 }
 
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+::selection{background:var(--gold);color:#1A1206}
+
+/* brass scrollbar */
+html{scrollbar-color:var(--gold-dk) var(--pitch)}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--pitch)}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#A8842B,#6E5417);
+  border:3px solid var(--pitch);border-radius:8px;
+}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad);position:relative;z-index:1}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--gold);color:#1A1206;font-family:var(--mono);font-size:.8rem;
+  padding:.8rem 1.2rem;text-decoration:none;
+}
+.skip:focus-visible{left:0}
 
 /* ============================================================
    TYPE
    ============================================================ */
 .gilt{
   color:var(--gold);                 /* fallback */
-  background-image:linear-gradient(174deg,
-    #F7EBC0 0%, #D9AE41 30%, #9C7522 52%, #E7CD82 72%, #C09328 100%);
+  background-image:
+    linear-gradient(115deg, transparent 42%, rgba(255,252,238,.75) 50%, transparent 58%),
+    linear-gradient(174deg,
+      #F7EBC0 0%, #D9AE41 30%, #9C7522 52%, #E7CD82 72%, #C09328 100%);
+  background-size:250% 100%, 100% 100%;
+  background-position:-120% 0, 0 0;
+  background-repeat:no-repeat;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(212,165,55,.18));
 }
 @supports not (background-clip:text){ .gilt{-webkit-text-fill-color:var(--gold)} }
+
+/* the light catches the leaf — once on load for the hero,
+   once on reveal for section headings */
+@keyframes gleam{
+  from{background-position:-120% 0, 0 0}
+  to  {background-position: 220% 0, 0 0}
+}
+.arch h1.gilt{animation:gleam 2.2s ease-in-out 1s both}
+.rv.is-in .gilt,
+.rv.is-in.gilt{animation:gleam 1.8s ease-in-out .35s both}
 
 .h-display{
   font-family:var(--display);font-weight:400;
@@ -112,6 +165,18 @@ a{color:inherit}
 }
 .eyebrow--gold{color:var(--gold)}
 .lede{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--cream-72);max-width:56ch}
+
+/* centred ornament — hairline · diamond · hairline ------------ */
+.orn{
+  display:flex;align-items:center;justify-content:center;gap:.9rem;
+  margin:0 auto 1.2rem;width:min(300px,60%);
+}
+.orn::before,.orn::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-55))}
+.orn::after{background:linear-gradient(90deg,var(--gold-55),transparent)}
+.orn i{
+  width:7px;height:7px;flex:none;background:var(--gold);transform:rotate(45deg);
+  box-shadow:0 0 12px rgba(212,165,55,.5);
+}
 
 /* ============================================================
    KNOTWORK — a two-strand Celtic plait, tiled
@@ -140,12 +205,25 @@ a{color:inherit}
   max-width:var(--maxw);margin:0 auto;padding:.8rem var(--pad);
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
 }
-.nav__mark{font-family:var(--display);font-size:1.1rem;text-decoration:none;letter-spacing:-.01em}
+.nav__mark{
+  font-family:var(--display);font-size:1.1rem;text-decoration:none;letter-spacing:-.01em;
+  display:inline-flex;align-items:center;gap:.55rem;
+}
+.nav__mark::before{
+  content:"";width:17px;height:17px;flex:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 12 A34 34 0 0 1 83 70 A34 34 0 0 1 17 70 A34 34 0 0 1 50 12 M50 12 A34 34 0 0 0 17 70 M83 70 A34 34 0 0 0 50 12 M17 70 A34 34 0 0 0 83 70' fill='none' stroke='%23E06900' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
 .nav__links{display:flex;gap:1.85rem;align-items:center}
 .nav__links a{
   font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
   text-decoration:none;color:var(--cream-72);transition:color .2s ease;
+  position:relative;
 }
+.nav__links a:not(.nav__call)::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;
+  background:var(--gold);transition:right .25s ease;
+}
+.nav__links a:not(.nav__call):hover::after{right:0}
 .nav__links a:hover{color:var(--gold-lt)}
 .nav__call{color:var(--copper) !important;letter-spacing:.1em !important}
 .nav__toggle{
@@ -161,6 +239,7 @@ a{color:inherit}
   }
   .nav__links.is-open{display:flex}
   .nav__links a{padding:1rem var(--pad);border-top:1px solid var(--rule)}
+  .nav__links a:not(.nav__call)::after{content:none}
   .nav__toggle{display:block}
 }
 
@@ -171,6 +250,7 @@ a{color:inherit}
   background:
     linear-gradient(180deg, rgba(212,165,55,.16), rgba(212,165,55,.05) 55%, rgba(0,0,0,.25));
   border-bottom:1px solid var(--gold-30);
+  box-shadow:inset 0 1px 0 rgba(243,224,164,.14);
 }
 .now__in{
   max-width:var(--maxw);margin:0 auto;padding:.62rem var(--pad);
@@ -188,9 +268,17 @@ a{color:inherit}
 .now__detail b{color:var(--gold-lt);font-weight:400}
 
 /* ============================================================
-   HERO — etched-glass arch
+   HERO — etched-glass arch between two etched pub windows
    ============================================================ */
-.hero{padding-block:clamp(2.5rem,6vw,5rem) clamp(3rem,7vw,5.5rem)}
+.hero{
+  padding-block:clamp(2.5rem,6vw,5rem) clamp(3rem,7vw,5.5rem);
+  position:relative;
+}
+/* lamplight pooling behind the arch */
+.hero::before{
+  content:"";position:absolute;inset:-8% -20% auto;height:110%;pointer-events:none;
+  background:radial-gradient(46% 52% at 50% 34%, rgba(212,165,55,.13), transparent 70%);
+}
 .arch{
   position:relative;
   max-width:900px;margin:0 auto;
@@ -209,7 +297,25 @@ a{color:inherit}
   border:1px solid var(--gold-15);
   border-radius:inherit;
 }
-.arch__logo{width:min(430px,86%);margin:0 auto clamp(1.8rem,4vw,2.6rem)}
+/* keystone at the crown of the arch */
+.arch::after{
+  content:"";position:absolute;top:-11px;left:50%;width:22px;height:22px;
+  transform:translateX(-50%) rotate(45deg);
+  background:linear-gradient(135deg,#E3C368,#8A6A1E);
+  box-shadow:0 0 0 4px var(--pitch), 0 0 18px rgba(212,165,55,.45);
+}
+/* filigree curls in the arch's lower corners */
+.arch__flourish{
+  position:absolute;bottom:10px;width:74px;height:74px;pointer-events:none;opacity:.5;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D4A537' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 76 C4 40 24 12 66 8'/%3E%3Cpath d='M66 8 C52 14 48 26 56 31 C62 34 68 28 63 22 C60 18 54 19 52 24'/%3E%3Cpath d='M4 76 C14 62 28 58 36 64 C42 69 38 77 31 74 C26 72 27 65 33 64'/%3E%3Cpath d='M14 44 C22 38 32 40 34 47'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+}
+.arch__flourish--l{left:12px}
+.arch__flourish--r{right:12px;transform:scaleX(-1)}
+
+.arch__logo{
+  width:min(430px,86%);margin:0 auto clamp(1.8rem,4vw,2.6rem);
+  filter:drop-shadow(0 4px 24px rgba(0,0,0,.55));
+}
 .arch h1{
   font-size:clamp(2.1rem,6.2vw,4.4rem);
   margin:0 auto 1.3rem;max-width:14ch;
@@ -224,34 +330,86 @@ a{color:inherit}
   color:var(--gold-55);margin:0 0 1.4rem;
 }
 
-/* the hero's gold sweep, once, on load */
+/* the hero settles into place, once, on load */
 .arch__logo{animation:sheen 2.4s ease-out .3s both}
 @keyframes sheen{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
+/* etched pint windows flanking the arch — pure decoration,
+   hidden below 1200px where they'd crowd the composition */
+.hero__pane{
+  display:none;position:absolute;top:50%;transform:translateY(-54%);
+  width:150px;height:320px;padding:14px;pointer-events:none;
+  border:1px solid var(--gold-15);
+  border-radius:110px 110px 3px 3px;
+  background:linear-gradient(180deg, rgba(29,74,49,.30), transparent 80%);
+  box-shadow:inset 0 0 40px rgba(0,0,0,.4);
+}
+.hero__pane::before{
+  content:"";position:absolute;inset:7px;border:1px solid var(--gold-08);
+  border-radius:inherit;
+}
+.hero__pane svg{width:100%;height:100%;opacity:.4}
+.hero__pane--l{left:calc(var(--pad) * .4)}
+.hero__pane--r{right:calc(var(--pad) * .4)}
+@media (min-width:1200px){ .hero__pane{display:block} }
+
+/* the pints are alive — bubbles rise, the head sways, slowly */
+.hero__pane .bub{animation:bubrise 5.5s linear infinite}
+.hero__pane .bub--2{animation-delay:1.7s}
+.hero__pane .bub--3{animation-delay:3.1s}
+.hero__pane .bub--4{animation-delay:4.4s}
+.hero__pane--r .bub{animation-duration:6.3s}
+.hero__pane--r .bub--2{animation-delay:2.2s}
+.hero__pane--r .bub--3{animation-delay:3.8s}
+.hero__pane--r .bub--4{animation-delay:.9s}
+@keyframes bubrise{
+  0%{transform:translateY(0);opacity:0}
+  10%{opacity:.7}
+  80%{opacity:.55}
+  100%{transform:translateY(-86px);opacity:0}
+}
+.hero__pane .foam{animation:foamsway 7s ease-in-out infinite alternate}
+@keyframes foamsway{from{transform:translateX(-1.5px)}to{transform:translateX(1.5px)}}
+
+/* lamplight breathes, barely */
+.hero::before{animation:lamp 9s ease-in-out infinite alternate}
+@keyframes lamp{from{opacity:.82}to{opacity:1}}
+
 .hero__meta{
   max-width:900px;margin:2.2rem auto 0;
-  display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2.4rem;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem 1.1rem;
   font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cream-48);text-align:center;
 }
 .hero__meta b{color:var(--gold-lt);font-weight:400}
+.hero__meta i{
+  width:5px;height:5px;flex:none;background:var(--gold-55);transform:rotate(45deg);
+}
 
 /* ============================================================
    BUTTONS
    ============================================================ */
 .btn{
+  position:relative;overflow:hidden;
   display:inline-flex;align-items:center;gap:.5rem;
   font-family:var(--mono);font-size:.76rem;font-weight:500;
   letter-spacing:.16em;text-transform:uppercase;
   padding:.95rem 1.6rem;border-radius:2px;text-decoration:none;
   border:1px solid transparent;transition:all .2s ease;
 }
+/* light sweeping across the brass on hover */
+.btn::after{
+  content:"";position:absolute;top:0;bottom:0;left:-80%;width:50%;
+  background:linear-gradient(105deg, transparent, rgba(255,252,238,.35), transparent);
+  transform:skewX(-18deg);transition:left .45s ease;
+}
+.btn:hover::after{left:130%}
 .btn--gold{
   background:linear-gradient(180deg,#E6C158,#B98F26);
   color:#1A1206;border-color:#E6C158;
   box-shadow:0 6px 18px -8px rgba(212,165,55,.6);
 }
-.btn--gold:hover{background:linear-gradient(180deg,#F3DC90,#CDA33A)}
+.btn--gold:hover{background:linear-gradient(180deg,#F3DC90,#CDA33A);box-shadow:0 8px 24px -8px rgba(212,165,55,.75)}
 .btn--ghost{border-color:var(--gold-30);color:var(--gold-lt)}
 .btn--ghost:hover{border-color:var(--gold);background:rgba(212,165,55,.09)}
 .btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
@@ -261,11 +419,21 @@ a{color:inherit}
    ============================================================ */
 .board{padding-block:clamp(2rem,5vw,3.5rem)}
 .board__frame{
-  padding:12px;border-radius:4px;
+  position:relative;
+  padding:14px;border-radius:4px;
   background:
     repeating-linear-gradient(91deg, rgba(0,0,0,.28) 0 2px, transparent 2px 7px),
     linear-gradient(180deg,#3A2410,#1E1207);
   box-shadow:0 26px 60px -32px #000, inset 0 1px 0 rgba(255,255,255,.07);
+}
+/* brass screws in the frame corners */
+.board__frame::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:
+    radial-gradient(circle 3px at 7px 7px,               #E6C158 30%, #6E5417 70%, transparent 72%),
+    radial-gradient(circle 3px at calc(100% - 7px) 7px,   #E6C158 30%, #6E5417 70%, transparent 72%),
+    radial-gradient(circle 3px at 7px calc(100% - 7px),   #E6C158 30%, #6E5417 70%, transparent 72%),
+    radial-gradient(circle 3px at calc(100% - 7px) calc(100% - 7px), #E6C158 30%, #6E5417 70%, transparent 72%);
 }
 .board__slate{
   background:
@@ -276,9 +444,14 @@ a{color:inherit}
   padding:clamp(1.6rem,4vw,2.6rem);
 }
 .board__title{
-  font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.6rem);
-  text-align:center;color:var(--cream);margin:0 0 .35rem;
+  font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.8rem);
+  text-align:center;color:var(--cream);margin:0 0 .4rem;
   text-shadow:0 1px 0 rgba(0,0,0,.6);
+}
+/* a chalk underline, drawn by hand */
+.board__title::after{
+  content:"";display:block;width:min(240px,70%);height:12px;margin:.35rem auto 0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 12'%3E%3Cg fill='none' stroke='%23F4EDDD' stroke-width='1.8' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M4 5 C60 2 180 2 236 4'/%3E%3Cpath d='M14 9 C70 7 170 7 226 8'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
 }
 .board__sub{
   text-align:center;font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;
@@ -287,6 +460,8 @@ a{color:inherit}
 .board__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,237,221,.1)}
 @media (max-width:780px){.board__grid{grid-template-columns:1fr}}
 .chalk{background:var(--slate);padding:1.7rem 1.4rem;text-align:center}
+.chalk:nth-child(odd) .chalk__t{transform:rotate(-.5deg)}
+.chalk:nth-child(even) .chalk__t{transform:rotate(.4deg)}
 .chalk__k{
   font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--copper);margin:0 0 .8rem;
@@ -310,8 +485,10 @@ a{color:inherit}
 .gig{
   display:grid;grid-template-columns:110px 1fr auto;gap:1.5rem;align-items:baseline;
   padding:1.5rem .4rem;border-top:1px solid var(--gold-15);
+  transition:background .3s ease;
 }
 .gig:last-child{border-bottom:1px solid var(--gold-15)}
+.gig:hover{background:var(--gold-08)}
 .gig__day{
   font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--gold);
@@ -321,6 +498,7 @@ a{color:inherit}
   display:block;font-family:var(--body);font-size:.88rem;font-weight:400;
   color:var(--cream-48);margin-top:.35rem;
 }
+.gig__tba{color:var(--cream-72);font-style:normal}
 .gig__time{font-family:var(--mono);font-size:.82rem;color:var(--cream-72);white-space:nowrap}
 .gig.is-tonight{
   background:linear-gradient(90deg, rgba(224,105,0,.13), transparent 70%);
@@ -340,10 +518,12 @@ a{color:inherit}
   position:relative;color:var(--ink-p);
   padding:clamp(1.9rem,5vw,4rem);
   background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.28 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23p)'/%3E%3C/svg%3E"),
     radial-gradient(80% 60% at 15% 8%, rgba(255,255,255,.5), transparent 60%),
     radial-gradient(70% 60% at 88% 92%, rgba(160,120,60,.16), transparent 60%),
+    radial-gradient(30% 22% at 78% 12%, rgba(150,105,45,.10), transparent 70%),
     var(--paper);
-  box-shadow:0 40px 90px -40px #000, 0 0 0 1px rgba(36,23,8,.15);
+  box-shadow:0 40px 90px -40px #000, 0 14px 34px -22px rgba(0,0,0,.8), 0 0 0 1px rgba(36,23,8,.15);
 }
 /* letterpress double rule inside the card edge */
 .menu__card::before{
@@ -354,10 +534,20 @@ a{color:inherit}
   content:"";position:absolute;inset:17px;pointer-events:none;
   border:1px solid rgba(36,23,8,.10);
 }
+/* the pub's triquetra, printed as a watermark */
 .menu__inner{position:relative}
+.menu__inner::before{
+  content:"";position:absolute;left:50%;top:50%;width:min(430px,80%);aspect-ratio:1;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 12 A34 34 0 0 1 83 70 A34 34 0 0 1 17 70 A34 34 0 0 1 50 12 M50 12 A34 34 0 0 0 17 70 M83 70 A34 34 0 0 0 50 12 M17 70 A34 34 0 0 0 83 70' fill='none' stroke='%23241708' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  opacity:.045;
+}
 .menu__card .eyebrow{color:#8A6420}
 .menu__card .h-sect{color:var(--ink-p)}
 .menu__card .lede{color:rgba(36,23,8,.72)}
+.menu__card .orn::before{background:linear-gradient(90deg,transparent,rgba(36,23,8,.45))}
+.menu__card .orn::after{background:linear-gradient(90deg,rgba(36,23,8,.45),transparent)}
+.menu__card .orn i{background:#8A6420;box-shadow:none}
 .menu__head{text-align:center;margin-bottom:2.2rem}
 .menu__head .lede{margin-inline:auto}
 
@@ -374,7 +564,13 @@ a{color:inherit}
 .menu__price{font-family:var(--mono);font-size:.9rem;flex:none}
 .menu__desc{margin:.3rem 0 0;font-size:.92rem;color:rgba(36,23,8,.66)}
 
-.menu__foot{margin-top:2.4rem;text-align:center}
+.menu__secnote{
+  text-align:center;font-size:.85rem;color:rgba(36,23,8,.6);
+  max-width:60ch;margin:-.6rem auto 1.2rem;
+}
+.menu__price--mkt{font-style:italic;font-size:.78rem;opacity:.7;letter-spacing:.04em}
+
+.menu__foot{margin-top:2.4rem;text-align:center;position:relative}
 .menu__card .btn--gold{
   background:linear-gradient(180deg,#2E1B0A,#150C04);color:var(--paper);border-color:#2E1B0A;
   box-shadow:none;
@@ -384,6 +580,44 @@ a{color:inherit}
   display:block;margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;
   letter-spacing:.06em;color:rgba(36,23,8,.55);
 }
+.menu__note--fine{font-size:.62rem;max-width:72ch;margin-inline:auto;opacity:.8}
+
+/* ---- the full menu page ------------------------------------ */
+.mhead{padding-block:clamp(2.4rem,5vw,4rem) 0;text-align:center}
+/* the tall page card keeps the paper grain but loses the big glare,
+   which reads as a bright band at this height */
+.menu--page .menu__card{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.28 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23p)'/%3E%3C/svg%3E"),
+    radial-gradient(90% 14% at 50% 0%, rgba(255,255,255,.4), transparent 70%),
+    radial-gradient(60% 10% at 85% 100%, rgba(160,120,60,.14), transparent 70%),
+    var(--paper);
+}
+.mhead .lede{margin-inline:auto}
+.menu--page{padding-block:clamp(2rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem)}
+.menu--page .menu__section + .menu__section{margin-top:clamp(2.2rem,4vw,3.2rem)}
+.menu--page .menu__section h3{
+  font-size:.78rem;letter-spacing:.3em;
+  display:flex;align-items:center;gap:1rem;justify-content:center;
+}
+.menu--page .menu__section h3::before,
+.menu--page .menu__section h3::after{
+  content:"";flex:0 1 90px;height:1px;background:rgba(36,23,8,.25);
+}
+.board--drinks{padding-block:clamp(1.5rem,3vw,2.5rem) clamp(2rem,4vw,3rem)}
+.board__note{
+  text-align:center;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
+  color:var(--cream-48);margin:1.6rem 0 0;
+}
+.chalk__list{list-style:none;margin:0;padding:0}
+.chalk__list li{
+  padding:.42rem 0;color:var(--cream-72);font-size:.93rem;
+  border-top:1px dashed rgba(244,237,221,.09);
+}
+.chalk__list li:first-child{border-top:0}
+.mcta{padding-block:clamp(2rem,5vw,3.5rem) clamp(3rem,6vw,4.5rem)}
+.mcta__in{text-align:center;margin-top:2.4rem}
+.mcta__in .h-sect{margin-bottom:1.6rem}
 
 /* ============================================================
    STORY
@@ -392,16 +626,35 @@ a{color:inherit}
 .story__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
 @media (max-width:880px){.story__grid{grid-template-columns:1fr}}
 .story p{color:var(--cream-72)}
+/* an illuminated initial on the first paragraph */
+.dropcap::first-letter{
+  font-family:var(--display);float:left;
+  font-size:3.4em;line-height:.78;padding:.08em .12em 0 0;
+  color:var(--gold);
+  text-shadow:0 2px 0 rgba(0,0,0,.55), 0 0 22px rgba(212,165,55,.25);
+}
 
 .pull{
-  margin-top:2.2rem;padding:1.7rem 1.6rem;
-  background:linear-gradient(180deg, rgba(78,21,25,.75), rgba(78,21,25,.35));
+  position:relative;
+  margin-top:2.2rem;padding:1.9rem 1.7rem 1.7rem;
+  background:
+    radial-gradient(80% 90% at 20% 0%, rgba(255,255,255,.05), transparent 60%),
+    linear-gradient(180deg, rgba(78,21,25,.8), rgba(78,21,25,.38));
   border-left:3px solid var(--copper);
   box-shadow:inset 0 0 40px rgba(0,0,0,.4);
+}
+/* upholstery stitching around the leather */
+.pull::before{
+  content:"";position:absolute;inset:7px;pointer-events:none;
+  border:1px dashed rgba(244,237,221,.22);
 }
 .pull q{
   display:block;quotes:none;font-family:var(--display);
   font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.25;color:var(--cream);
+}
+.pull q::before{
+  content:"\201C";display:block;font-size:2.2em;line-height:.6;
+  color:var(--copper);margin-bottom:.15em;
 }
 .pull cite{
   display:block;margin-top:.85rem;font-style:normal;font-family:var(--mono);
@@ -413,6 +666,11 @@ a{color:inherit}
   padding:10px;
   background:linear-gradient(150deg,#E3C368,#8A6A1E 40%,#F0DA9A 62%,#7A5C18);
   box-shadow:0 26px 60px -34px #000;
+  transition:transform .45s cubic-bezier(.2,.8,.25,1), box-shadow .45s ease;
+}
+.frame:hover{
+  transform:translateY(-4px);
+  box-shadow:0 34px 70px -32px #000, 0 0 40px -10px rgba(212,165,55,.25);
 }
 .frame__in{
   background:var(--bottle);position:relative;overflow:hidden;
@@ -422,15 +680,20 @@ a{color:inherit}
 .frame--tall .frame__in{aspect-ratio:4/5}
 .frame--square .frame__in{aspect-ratio:1}
 .shot{
-  width:100%;padding:1.15rem;
+  width:100%;padding:1.05rem;
   background:
     repeating-linear-gradient(135deg, rgba(212,165,55,.05) 0 10px, transparent 10px 20px),
     var(--bottle);
   min-height:100%;display:flex;align-items:flex-end;
 }
-.shot__label{font-family:var(--mono);font-size:.71rem;line-height:1.5;color:var(--cream-72);margin:0}
+/* the photographer's brief, on a little brass plate */
+.shot__label{
+  font-family:var(--mono);font-size:.7rem;line-height:1.5;color:var(--cream-72);margin:0;
+  border:1px solid var(--gold-15);background:rgba(10,22,16,.72);
+  padding:.7rem .8rem;backdrop-filter:blur(3px);
+}
 .shot__label b{
-  display:block;font-weight:400;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  display:block;font-weight:400;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--copper);margin-bottom:.4rem;
 }
 
@@ -442,22 +705,31 @@ a{color:inherit}
 @media (max-width:880px){.parties__grid{grid-template-columns:1fr}}
 .parties ul{list-style:none;padding:0;margin:1.7rem 0 2.1rem}
 .parties li{
-  position:relative;padding:.78rem 0 .78rem 1.7rem;
+  position:relative;padding:.78rem 0 .78rem 1.9rem;
   border-top:1px solid var(--gold-15);color:var(--cream-72);font-size:.97rem;
 }
 .parties li::before{
-  content:"";position:absolute;left:0;top:1.28rem;width:7px;height:7px;
-  background:var(--gold);transform:rotate(45deg);
+  content:"";position:absolute;left:0;top:1.02rem;width:15px;height:15px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 17'%3E%3Cg fill='%2329A343'%3E%3Ccircle cx='8' cy='4.6' r='3.5'/%3E%3Ccircle cx='4.3' cy='9.6' r='3.5'/%3E%3Ccircle cx='11.7' cy='9.6' r='3.5'/%3E%3Cpath d='M7.3 8.5h1.4l.7 8h-2.8z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
 }
 .parties__cta{display:flex;flex-wrap:wrap;gap:.75rem}
 
 /* ============================================================
-   FEED
+   FEED — a gallery wall, pictures hung slightly askew
    ============================================================ */
 .feed{padding-block:clamp(2.5rem,6vw,4.5rem)}
 .feed__head{text-align:center;margin-bottom:2.2rem}
-.feed__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.feed__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.35rem}
 @media (max-width:880px){.feed__grid{grid-template-columns:repeat(2,1fr)}}
+.feed__grid > :nth-child(4n+1) .frame{transform:rotate(-1.1deg)}
+.feed__grid > :nth-child(4n+2) .frame{transform:rotate(.8deg)}
+.feed__grid > :nth-child(4n+3) .frame{transform:rotate(-.6deg)}
+.feed__grid > :nth-child(4n+4) .frame{transform:rotate(1.2deg)}
+.feed__grid .frame:hover{transform:translateY(-4px) rotate(0deg)}
+/* stagger the reveal across the row */
+.feed__grid > .rv:nth-child(2){transition-delay:.1s}
+.feed__grid > .rv:nth-child(3){transition-delay:.2s}
+.feed__grid > .rv:nth-child(4){transition-delay:.3s}
 
 /* ============================================================
    FOOTER
@@ -467,13 +739,17 @@ a{color:inherit}
   background:linear-gradient(180deg, rgba(15,36,26,.85), var(--pitch));
   padding-block:clamp(2.8rem,6vw,4.5rem) 1.8rem;
 }
+.foot__slainte{
+  text-align:center;font-family:var(--display);
+  font-size:clamp(2rem,5vw,3.4rem);margin:0 0 clamp(2.2rem,5vw,3.6rem);
+}
 .foot__grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:2.6rem}
 @media (max-width:860px){.foot__grid{grid-template-columns:1fr}}
 .foot h5{
   font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
   color:var(--gold);margin:0 0 1.1rem;font-weight:400;
 }
-.foot__logo{width:230px;margin-bottom:1.3rem}
+.foot__logo{width:230px;height:auto;margin-bottom:1.3rem}
 .foot p,.foot address{margin:0 0 .5rem;font-style:normal;color:var(--cream-72);font-size:.95rem}
 .foot a{text-decoration:none;transition:color .2s ease}
 .foot a:hover{color:var(--gold-lt)}
@@ -492,8 +768,12 @@ a{color:inherit}
 }
 
 /* ============================================================
-   REVEAL
+   REVEAL — armed only when JS is running (html.js), so the page
+   is fully visible with JavaScript disabled
    ============================================================ */
-.rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
-.rv.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+.js .rv.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.js .rv{opacity:1;transform:none}}
+/* rows of gigs arrive one after another */
+#gigs .gig.rv:nth-of-type(2){transition-delay:.12s}
+#gigs .gig.rv:nth-of-type(3){transition-delay:.24s}

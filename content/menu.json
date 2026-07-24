@@ -1,24 +1,133 @@
 {
-  "_comment": "Homepage menu teaser. Prices deliberately omitted — do not invent them. When the client supplies the real menu, add a 'price' key per item and build.py will render leader dots and the price automatically.",
+  "_comment": "Homepage teaser + the full menu page (/menu/). Transcribed from photographs of the laminated dinner menu, the Irish Fare & drinks page, and the dessert card supplied July 2026. Prices are bare dollars as printed on the menu itself.",
+  "_TODO": "Every price here was transcribed from photos of the physical menus. Have the client read the whole page once against the current menu before launch — especially Chicken Tenders, Loaded Baked Potato, the sandwich prices, Chef's Choice Vegetable Plate, and the sides price, where the photo was hardest to read. Drink prices were NOT legible and are deliberately omitted.",
 
   "intro": "The sausages, the scones, the fritters — all of it goes together in our kitchen every morning. It takes longer. That's rather the point.",
 
   "note": "Vegetarian, vegan and gluten-free options throughout. Guinness poured properly.",
 
-  "full_menu_url": "",
-  "_TODO": "full_menu_url is empty, so the 'Full menu' button renders disabled. Point it at a PDF in static/ or a /menu page.",
+  "full_menu_url": "/menu/",
 
   "sections": [
     {
       "heading": "From the kitchen",
       "items": [
-        { "name": "Shepherd's pie", "desc": "Slow-cooked lamb under mash, browned on top." },
-        { "name": "Fish and chips", "desc": "Fresh cod in seasoned crumb, tartar and slaw alongside." },
-        { "name": "Corned beef and cabbage fritters", "desc": "The one people come back for. Ask anyone at the bar." },
-        { "name": "Bangers and mash", "desc": "Our own sausages, onion gravy, no shortcuts." },
-        { "name": "Irish stew", "desc": "On when the kitchen says it's on. Worth asking." },
-        { "name": "Homemade Irish scones", "desc": "Baked in-house. They go quickly." }
+        { "name": "Shepherd's pie", "desc": "Ground lamb and beef with onions, celery, rosemary and thyme, under mash and cheddar.", "price": "19" },
+        { "name": "Fish and chips", "desc": "Cod filets, beer battered and deep fried, with fries, coleslaw and tartar sauce.", "price": "19" },
+        { "name": "Corned beef & Swiss fritters", "desc": "Paddy's original recipe with mustard sauce. The one people come back for.", "price": "15" },
+        { "name": "Bangers and mash", "desc": "Paddy's famous homemade sausage, creamy mash, gravy, hot mustard on the side.", "price": "20" },
+        { "name": "The mixed grill", "desc": "Pork loin, Irish sausage, Irish bacon, boxty, black pudding, the works.", "price": "26" },
+        { "name": "Monica's bread pudding", "desc": "Everyone's favourite, with homemade custard. It's moist and it's wonderful.", "price": "7.95" }
       ]
     }
-  ]
+  ],
+
+  "page": {
+    "tagline": "Warm service, premium drinks and authentic Irish cuisine — Palm Beach County's local for thirty years.",
+    "fine_print": "Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Sharing charge 7, comes with sides.",
+    "market_note": "Market-price dishes change with the catch — ask your server.",
+    "food": [
+      {
+        "heading": "Irish fare",
+        "items": [
+          { "name": "Bangers & mash", "desc": "Paddy's famous homemade sausage with creamy mashed potatoes, vegetables and gravy, hot mustard sauce on the side.", "price": "20" },
+          { "name": "Shepherd's pie", "desc": "Ground lamb and beef pie with onions, celery, rosemary and thyme, topped with mashed potatoes and cheddar cheese.", "price": "19" },
+          { "name": "Fish & chips", "desc": "Cod filets, beer battered and deep fried, served with fries, coleslaw and tartar sauce.", "price": "19" },
+          { "name": "Chicken pot pie", "desc": "Tender chicken breast simmered in a creamy broth with mushrooms, carrots, peas and potatoes, topped with a pastry crust.", "price": "19" },
+          { "name": "Irish cottage pie", "desc": "Ground beef, diced vegetables, fresh herbs and spices, topped with mashed potatoes.", "price": "19" },
+          { "name": "The mixed grill", "desc": "Grilled pork loin, Irish sausage, Irish bacon, boxty, stuffed tomato, black pudding, mushrooms and fried bread.", "price": "26" },
+          { "name": "Salmon leap", "desc": "Potato-crusted salmon with citrus butter sauce, tropical salsa, mashed potatoes and vegetables.", "price": "market" },
+          { "name": "Artichoke & crab crusted salmon", "desc": "Garlic butter sauce, tropical salsa, mashed potatoes and vegetables.", "price": "market" }
+        ]
+      },
+      {
+        "heading": "Appetizers",
+        "items": [
+          { "name": "Smoked salmon", "desc": "Home-smoked wild Irish salmon with onions, capers and homemade brown bread.", "price": "18" },
+          { "name": "Corned beef & Swiss fritters", "desc": "Paddy's original recipe with mustard sauce.", "price": "15" },
+          { "name": "Mulligan's mushrooms", "desc": "Baked stuffed mushrooms with lump crab, topped with garlic beurre blanc.", "price": "18" },
+          { "name": "Spicy chicken wings", "desc": "Tossed in Paddy's original recipe hot sauce, spicy herb and pepper sauce, blue cheese dressing and celery.", "price": "16" },
+          { "name": "Pint of sausages", "desc": "Sautéed golden brown, served with spicy and honey mustards.", "price": "15" },
+          { "name": "Chicken tenders", "desc": "Panko breaded, with honey mustard, BBQ or hot sauce.", "price": "14" },
+          { "name": "Dolphin fingers", "desc": "Panko coated and fried, with lemon and tartar sauce.", "price": "17" },
+          { "name": "Smoked fish dip", "desc": "With assorted crackers, peppers and crudités.", "price": "16" },
+          { "name": "Loaded baked potato", "desc": "Shepherd's pie stuffing with ground beef and lamb mix and cheddar cheese.", "price": "14" },
+          { "name": "Ground chuck beef slider", "desc": "With lettuce, tomato, onion and cheddar cheese.", "price": "9" }
+        ]
+      },
+      {
+        "heading": "Soups & salads",
+        "items": [
+          { "name": "Corned beef, cabbage & potato soup", "desc": "Paddy's mother's recipe.", "price": "7" },
+          { "name": "Onion soup", "desc": "Lots of onions and herbs in a wonderful broth with a three-cheese crust.", "price": "10" },
+          { "name": "Chilled vichyssoise", "desc": "The classic chilled potato and leek soup with a creamy chive flavour.", "price": "10" },
+          { "name": "Caesar salad", "desc": "With shamrock croutons and fresh parmesan.", "price": "11" },
+          { "name": "Garden salad", "desc": "Tossed mixed greens, tomatoes, cucumber, radish and egg with shamrock dressing.", "price": "11" },
+          { "name": "Grilled pear & gorgonzola salad with salmon", "desc": "Grapes, mandarin oranges, toasted pine nuts, raspberry vinaigrette and spring salad mix. Add salmon, chicken or dolphin at market.", "price": "19" }
+        ]
+      },
+      {
+        "heading": "Paddy burgers",
+        "note": "Toppings 1.50 each: cheddar, provolone, American, brie, goat cheese, feta, mushrooms, onions, egg, bacon, potato pancake, avocado, BBQ sausage, jalapeño, black pudding, sweet peppers, roasted red peppers, grilled pineapple, curry slaw, coleslaw.",
+        "items": [
+          { "name": "Beef", "price": "14" },
+          { "name": "Crab cake", "price": "17" },
+          { "name": "The Paddy double", "desc": "Only if you're hungry.", "price": "18" }
+        ]
+      },
+      {
+        "heading": "Sandwiches",
+        "note": "With your choice of fries, potato chips, vegetables or coleslaw.",
+        "items": [
+          { "name": "Grilled corned beef & Swiss", "desc": "Home-cooked, thinly sliced corned beef with Swiss cheese on grilled rye bread.", "price": "16" },
+          { "name": "Dolphin wrap or sandwich", "desc": "Grilled, blackened or crunchy, with lettuce, tomato and onions on a wrap or a baguette.", "price": "17" },
+          { "name": "Chicken dinger wrap", "desc": "Served with cheddar cheese and fries.", "price": "16" },
+          { "name": "Grilled chicken sandwich", "desc": "Herb-marinated chicken breast, grilled and topped with crispy bacon, American cheese, lettuce, tomato and onion on a kaiser roll.", "price": "16" },
+          { "name": "Salmon caesar wrap", "desc": "Grilled or blackened salmon with caesar salad in a plain wrap.", "price": "17" }
+        ]
+      },
+      {
+        "heading": "Entrées",
+        "items": [
+          { "name": "12oz New York strip", "desc": "Certified Angus beef, center cut, with béarnaise or au poivre, baked potato and vegetables.", "price": "market" },
+          { "name": "Lamb loin chops", "desc": "Three center-cut chops grilled to perfection with mint sauce, creamy mashed potatoes and vegetables.", "price": "30" },
+          { "name": "BBQ ribs", "desc": "With a peach barbecue sauce, fries and slaw.", "price": "27" },
+          { "name": "Paddy's local fish", "desc": "Potato gnocchi, lardons of bacon, leeks, green beans, peas, baby spinach, sun-blushed tomatoes and smoked bacon butter.", "price": "market" },
+          { "name": "3-nut crusted dolphin", "desc": "Filet crusted with pecans, walnuts and almonds, tropical fruit salsa, citrus butter sauce, mashed potatoes and vegetables.", "price": "market" },
+          { "name": "Seafood pasta", "desc": "Linguine with shrimp and salmon in a tomato basil sauce.", "price": "market" },
+          { "name": "Paddy's pasta", "desc": "Blackened chicken on a bed of spinach and penne with olives, tomatoes and goat cheese in a red sauce.", "price": "23" },
+          { "name": "Catch of the day", "desc": "Grilled, fried or blackened, with choice of two sides.", "price": "market" },
+          { "name": "Chef's choice vegetable plate", "desc": "Fresh vegetables of the day with a creamy chive flavour.", "price": "18" }
+        ]
+      },
+      {
+        "heading": "Sides",
+        "note": "Coleslaw · quinoa · basmati rice · mashed potatoes · vegetables · baked potato",
+        "items": []
+      },
+      {
+        "heading": "Dessert",
+        "note": "Dessert tasters — a few sweet bites of the same, 3.95 each: apple crisp, Monica's bread pudding, Fudgie Wudgie, peanut butter pie, New York cheesecake.",
+        "items": [
+          { "name": "Chocolate bundt cake", "desc": "Coated with dark chocolate, full of chocolate chips, served warm with a giant ball of real vanilla ice cream.", "price": "8.95" },
+          { "name": "Monica's bread pudding", "desc": "Bread pudding with homemade custard. It's moist and it's wonderful.", "price": "7.95" },
+          { "name": "Warm upside-down pineapple cake", "desc": "With rum and brown bread ice cream.", "price": "8.95" },
+          { "name": "Fudgie Wudgie", "desc": "Chocolate brownie topped with chocolate sauce and vanilla ice cream.", "price": "8.95" },
+          { "name": "Peanut butter pie", "desc": "Topped with a chocolate peanut cup and fresh whipped cream.", "price": "8.95" },
+          { "name": "New York cheesecake", "desc": "With strawberry sauce and fresh whipped cream.", "price": "8.95" },
+          { "name": "Ice cream sundae", "desc": "Two scoops with nuts, chocolate and caramel sauces, whipped cream and a cherry.", "price": "7.95" }
+        ]
+      }
+    ],
+    "drinks": {
+      "heading": "From the bar",
+      "sub": "Poured properly, no exceptions",
+      "note": "Wines by the glass and bottle, and specialty cocktails — ask at the bar.",
+      "groups": [
+        { "title": "On draught", "items": ["Guinness", "Harp", "Smithwick's brown ale", "Paddy Mac's red ale", "Sail Fish German-style wheat", "Stella Artois", "Seasonal selection"] },
+        { "title": "Bottles", "items": ["Magners cider", "Heineken", "Heineken Light", "Amstel Light", "Becks", "Becks Light", "Pilsner Urquell"] },
+        { "title": "Coffee with a kick", "items": ["Irish coffee — Jameson and freshly brewed coffee, whipped cream", "Nutty Irishman — Frangelico and Carolans Irish cream", "Café Royal — Patrón XO Café, whipped cream", "Espresso martini — Kahlúa, Absolut and fresh coffee"] }
+      ]
+    }
+  }
 }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The menu — {{ name }}</title>
+<meta name="description" content="The full menu at {{ name }}, {{ city }} — Irish fare, appetizers, Paddy burgers, entrées, dessert, and Guinness poured properly.">
+<meta name="theme-color" content="#0A1610">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="The menu — {{ name }}">
+<meta property="og:description" content="Irish fare, Paddy burgers, and Guinness poured properly, in {{ city }} since {{ established }}.">
+<meta property="og:image" content="/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+
+<link rel="preload" href="/fonts/alfa-slab-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dm-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav">
+  <div class="nav__in">
+    <a class="nav__mark gilt" href="/">paddy mac's</a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav__links" id="navLinks">
+      <a href="#food">Food</a>
+      <a href="#drinks">Drinks</a>
+      <a href="/#music">Live music</a>
+      <a href="/#visit">Visit</a>
+      <a class="nav__call" href="tel:{{ phone_href }}">{{ phone_display }}</a>
+    </div>
+  </div>
+</nav>
+
+<div class="now" id="top">
+  <div class="now__in">
+    <span class="now__dot" id="nowDot"></span>
+    <span class="now__state" id="nowState">Checking the door</span>
+    <span class="now__detail" id="nowDetail"></span>
+  </div>
+</div>
+
+<main id="main">
+
+<header class="mhead">
+  <div class="wrap">
+    <p class="eyebrow">The kitchen &amp; the bar</p>
+    <h1 class="h-sect gilt">The menu.</h1>
+    <div class="orn" aria-hidden="true"><i></i></div>
+    <p class="lede">{{ page_tagline }}</p>
+  </div>
+</header>
+
+<section class="menu menu--page" id="food">
+  <div class="wrap">
+    <div class="menu__card rv">
+      <div class="menu__inner">
+{{ menu_page_html }}
+        <div class="menu__foot">
+          <span class="menu__note">{{ market_note }}</span>
+          <span class="menu__note menu__note--fine">{{ fine_print }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board board--drinks" id="drinks">
+  <div class="wrap">
+    <div class="board__frame rv">
+      <div class="board__slate">
+        <h2 class="board__title">{{ drinks_heading }}</h2>
+        <p class="board__sub">{{ drinks_sub }}</p>
+        <div class="board__grid">
+{{ drinks_html }}
+        </div>
+        <p class="board__note">{{ drinks_note }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mcta">
+  <div class="wrap">
+    <div class="knotrule knotrule--fade rv" aria-hidden="true"></div>
+    <div class="mcta__in rv">
+      <h2 class="h-sect gilt">Hungry yet?</h2>
+      <div class="parties__cta" style="justify-content:center">
+        <a class="btn btn--gold" href="tel:{{ phone_href }}">Call {{ phone_display }}</a>
+        <a class="btn btn--ghost" href="{{ maps_url }}">Get directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <img class="foot__logo" src="/img/logo.png" alt="{{ name }}" width="1259" height="312" loading="lazy">
+        <address>{{ street }}<br>{{ city }}, {{ state }} {{ zip }}</address>
+        <p><a href="tel:{{ phone_href }}">{{ phone_display }}</a></p>
+      </div>
+      <div>
+        <h5>Hours</h5>
+        <ul class="hours" id="hoursList">{{ hours_html }}</ul>
+        <p style="margin-top:1rem;font-size:.85rem;color:rgba(244,237,221,.48)">{{ kitchen_note }}</p>
+      </div>
+      <div>
+        <h5>Back to</h5>
+        <p><a href="/">The front door</a></p>
+        <p><a href="/#music">Who's playing</a></p>
+        <p><a href="/#parties">Large parties</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="foot__base">
+    <span>© {{ year }} {{ name }}</span>
+    <span>{{ city }}, Florida · Since 1995</span>
+  </div>
+</footer>
+
+<script src="/js/site.js" defer></script>
+<script>window.PM = {{ js_data }};</script>
+</body>
+</html>
