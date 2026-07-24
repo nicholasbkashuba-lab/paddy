@@ -1,0 +1,24 @@
+{
+  "_comment": "Homepage menu teaser. Prices deliberately omitted — do not invent them. When the client supplies the real menu, add a 'price' key per item and build.py will render leader dots and the price automatically.",
+
+  "intro": "The sausages, the scones, the fritters — all of it goes together in our kitchen every morning. It takes longer. That's rather the point.",
+
+  "note": "Vegetarian, vegan and gluten-free options throughout. Guinness poured properly.",
+
+  "full_menu_url": "",
+  "_TODO": "full_menu_url is empty, so the 'Full menu' button renders disabled. Point it at a PDF in static/ or a /menu page.",
+
+  "sections": [
+    {
+      "heading": "From the kitchen",
+      "items": [
+        { "name": "Shepherd's pie", "desc": "Slow-cooked lamb under mash, browned on top." },
+        { "name": "Fish and chips", "desc": "Fresh cod in seasoned crumb, tartar and slaw alongside." },
+        { "name": "Corned beef and cabbage fritters", "desc": "The one people come back for. Ask anyone at the bar." },
+        { "name": "Bangers and mash", "desc": "Our own sausages, onion gravy, no shortcuts." },
+        { "name": "Irish stew", "desc": "On when the kitchen says it's on. Worth asking." },
+        { "name": "Homemade Irish scones", "desc": "Baked in-house. They go quickly." }
+      ]
+    }
+  ]
+}

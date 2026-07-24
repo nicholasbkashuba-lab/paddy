@@ -1,0 +1,106 @@
+{
+  "_comment": "Single source of truth for everything factual on the site. Edit here, run build.py, push. Anything marked TODO needs confirming with the client before launch.",
+
+  "name": "Paddy Mac's Irish Restaurant",
+  "short_name": "Paddy Mac's",
+  "tagline": "We didn't have to fake the accent.",
+  "established": "December 1995",
+  "years": 30,
+
+  "address": {
+    "street": "10971 N Military Trail",
+    "city": "Palm Beach Gardens",
+    "state": "FL",
+    "zip": "33410",
+    "maps_url": "https://maps.google.com/?cid=16791095320327558594"
+  },
+
+  "phone_display": "561 691 4366",
+  "phone_href": "+15616914366",
+
+  "reviews": {
+    "rating": "4.5",
+    "count": "968",
+    "source": "Google",
+    "url": ""
+  },
+
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "_TODO": "Get the real handles. The Lately section renders placeholder tiles until instagram is filled in."
+  },
+
+  "hours": [
+    { "day": "Sunday",    "open": null,  "close": null, "_TODO": "CONFLICT: Google says closed. Old site advertises Sunday brunch 11am-3pm. Confirm." },
+    { "day": "Monday",    "open": 690,   "close": 1440 },
+    { "day": "Tuesday",   "open": 690,   "close": 1440 },
+    { "day": "Wednesday", "open": 690,   "close": 1440 },
+    { "day": "Thursday",  "open": 690,   "close": 1440 },
+    { "day": "Friday",    "open": 690,   "close": 1560 },
+    { "day": "Saturday",  "open": 900,   "close": 1560 }
+  ],
+  "_hours_format": "Minutes from midnight. 690 = 11:30am. Values over 1440 mean after midnight, so 1560 = 2am. null/null means closed all day.",
+
+  "kitchen_note": "The kitchen closes an hour before the bar.",
+
+  "gigs": [
+    { "dow": 5, "act": "TBC", "note": "Two sets, trad and covers", "time": "8:00pm – 11:00pm", "_TODO": "Is there music on Fridays at all? Old site says Saturday only, brief says Fri+Sat. Confirm, then remove this entry or fill in real band names." },
+    { "dow": 6, "act": "TBC", "note": "Local band", "time": "8:00pm – 11:00pm" }
+  ],
+  "_gigs_format": "dow: 0=Sunday .. 6=Saturday. TODO: confirm whether music is Friday AND Saturday, or Saturday only. The old site says Saturday; the brief says both.",
+
+  "board": [
+    {
+      "kicker": "Every day",
+      "title": "Happy hour",
+      "body": "Drink prices come down and the bar fills up.",
+      "detail": "Times TBC",
+      "_TODO": "Happy hour times unknown. Get them — this is a conversion driver and it currently says nothing."
+    },
+    {
+      "kicker": "Before the rush",
+      "title": "Early bird",
+      "body": "A shorter menu at a better price, served early.",
+      "detail": "Times TBC",
+      "_TODO": "Early bird times and which nights. Also whether it has its own menu worth linking."
+    },
+    {
+      "kicker": "Friday & Saturday",
+      "title": "Live local bands",
+      "body": "No cover. Music from eight, and the floor usually follows.",
+      "detail": "No cover"
+    }
+  ],
+
+  "story": [
+    "Paddy Mac's opened its doors in the winter of 1995, and a good number of the staff who started that year are still here. That isn't a marketing line. It's just what happened.",
+    "Hugh came over from Cork and built the sort of room he'd have wanted to walk into. Dark wood. No televisions shouting over the music. A pint given the full time it needs to settle.",
+    "Somewhere along the way the pub sponsored one of the first girls' soccer teams in Palm Beach Gardens. They were called the Shamrocks. People still bring it up at the bar."
+  ],
+
+  "pull_quote": {
+    "text": "This isn't your fake Irish pub.",
+    "cite": "A Google review we've decided to frame",
+    "_TODO": "Verbatim customer review. Get the reviewer's blessing or reword in the pub's own voice before launch."
+  },
+
+  "parties": [
+    "Parties of 8 or more — call ahead and we'll hold the space",
+    "Set menus available for larger groups",
+    "Patio seating for when the weather behaves",
+    "We've hosted a good few rehearsal dinners"
+  ],
+
+  "shots": {
+    "_comment": "Photo slots. Fill 'src' with a path under static/img/ and the placeholder disappears automatically.",
+    "story":   { "src": "", "brief": "Hugh or his son behind the bar, mid-pour, house lights only. Portrait 4:5. Shoot 4pm on a weekday — front-window light does the work." },
+    "parties": { "src": "", "brief": "The long table set for a party, shot from the head of it. Empty chairs, full place settings, before guests arrive. Portrait 4:5." },
+    "feed":    [
+      { "src": "", "brief": "Square. Bar at full tilt on a Friday." },
+      { "src": "", "brief": "Square. Fish and chips, overhead, natural light." },
+      { "src": "", "brief": "Square. Band mid-set, from the floor." },
+      { "src": "", "brief": "Square. Scones coming out of the oven." }
+    ]
+  }
+}

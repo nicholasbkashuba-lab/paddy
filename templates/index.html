@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ name }} — {{ city }}, since 1995</title>
+<meta name="description" content="A real Irish pub on Military Trail in {{ city }}. House-made sausages, hand-poured Guinness, live local bands at the weekend. Open since {{ established }}.">
+<meta name="theme-color" content="#0A1610">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="{{ name }}">
+<meta property="og:description" content="A real Irish pub in {{ city }} since {{ established }}.">
+<meta property="og:image" content="/img/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{{ jsonld }}</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__in">
+    <a class="nav__mark gilt" href="#top">paddy mac's</a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav__links" id="navLinks">
+      <a href="#menu">Food</a>
+      <a href="#music">Live music</a>
+      <a href="#story">Our story</a>
+      <a href="#parties">Large parties</a>
+      <a href="#visit">Visit</a>
+      <a class="nav__call" href="tel:{{ phone_href }}">{{ phone_display }}</a>
+    </div>
+  </div>
+</nav>
+
+<div class="now" id="top">
+  <div class="now__in">
+    <span class="now__dot" id="nowDot"></span>
+    <span class="now__state" id="nowState">Checking the door</span>
+    <span class="now__detail" id="nowDetail"></span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="arch">
+      <img class="arch__logo" src="/img/logo.png" alt="{{ name }}" width="1259" height="312">
+      <p class="arch__est">Established {{ established }}</p>
+      <h1 class="h-display gilt">{{ tagline }}</h1>
+      <p class="arch__sub">Hugh is from Cork. So are half the people behind the bar. {{ years }} years on Military Trail, and the sausages are still made in the back.</p>
+      <div class="arch__cta">
+        <a class="btn btn--gold" href="#menu">See the menu</a>
+        <a class="btn btn--ghost" href="#music">Who's playing</a>
+      </div>
+    </div>
+    <div class="hero__meta">
+      <span>Est. <b>{{ established }}</b></span>
+      <span>{{ city }}, <b>Florida</b></span>
+      <span><b>{{ rating }}★</b> · {{ review_count }} Google reviews</span>
+    </div>
+  </div>
+</header>
+
+<section class="board">
+  <div class="wrap">
+    <div class="board__frame rv">
+      <div class="board__slate">
+        <h2 class="board__title">On every week</h2>
+        <p class="board__sub">Without fail</p>
+        <div class="board__grid">
+{{ board_html }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="music" id="music">
+  <div class="wrap">
+    <div class="knotrule knotrule--fade rv" aria-hidden="true"></div>
+    <div class="music__head rv" style="margin-top:2.4rem">
+      <p class="eyebrow">This week on the stage</p>
+      <h2 class="h-sect gilt">No cover. Never has been.</h2>
+    </div>
+    <div id="gigs">{{ gigs_html }}</div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="menu__card rv">
+      <div class="menu__inner">
+        <div class="menu__head">
+          <p class="eyebrow">The kitchen</p>
+          <h2 class="h-sect">Made here, not delivered here.</h2>
+          <p class="lede">{{ menu_intro }}</p>
+        </div>
+{{ menu_html }}
+        <div class="menu__foot">
+          {{ menu_button }}
+          <span class="menu__note">{{ menu_note }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="knotrule knotrule--fade rv" aria-hidden="true"></div>
+    <div class="story__grid" style="margin-top:3rem">
+      <div class="rv">
+        <p class="eyebrow">Since {{ established }}</p>
+        <h2 class="h-sect gilt">{{ years }} years, mostly the same faces.</h2>
+{{ story_html }}
+        <blockquote class="pull">
+          <q>{{ quote_text }}</q>
+          <cite>— {{ quote_cite }}</cite>
+        </blockquote>
+      </div>
+      <div class="rv">{{ shot_story }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="parties" id="parties">
+  <div class="wrap">
+    <div class="parties__grid">
+      <div class="rv">
+        <p class="eyebrow eyebrow--gold">Groups, parties and the long table</p>
+        <h2 class="h-sect gilt">Bring everyone.</h2>
+        <p class="lede">Rehearsal dinners, retirement parties, a table of fourteen on a Tuesday. Tell us how many and when, and we'll sort the rest.</p>
+        <ul>
+{{ parties_html }}
+        </ul>
+        <div class="parties__cta">
+          <a class="btn btn--gold" href="tel:{{ phone_href }}">Call {{ phone_display }}</a>
+          <a class="btn btn--ghost" href="mailto:">Send an enquiry</a>
+        </div>
+      </div>
+      <div class="rv">{{ shot_parties }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="feed">
+  <div class="wrap">
+    <div class="knotrule knotrule--fade rv" aria-hidden="true"></div>
+    <div class="feed__head rv" style="margin-top:2.6rem">
+      <p class="eyebrow">Lately</p>
+      <h2 class="h-sect gilt">What's been going on.</h2>
+    </div>
+    <div class="feed__grid">
+{{ feed_html }}
+    </div>
+  </div>
+</section>
+
+<footer class="foot" id="visit">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <img class="foot__logo" src="/img/logo.png" alt="{{ name }}" width="1259" height="312" loading="lazy">
+        <address>{{ street }}<br>{{ city }}, {{ state }} {{ zip }}</address>
+        <p><a href="tel:{{ phone_href }}">{{ phone_display }}</a></p>
+        <p><a href="{{ maps_url }}">Get directions</a></p>
+      </div>
+      <div>
+        <h5>Hours</h5>
+        <ul class="hours" id="hoursList">{{ hours_html }}</ul>
+        <p style="margin-top:1rem;font-size:.85rem;color:rgba(244,237,221,.48)">{{ kitchen_note }}</p>
+      </div>
+      <div>
+        <h5>Find us</h5>
+{{ social_html }}
+      </div>
+    </div>
+  </div>
+  <div class="foot__base">
+    <span>© {{ year }} {{ name }}</span>
+    <span>{{ city }}, Florida · Since 1995</span>
+  </div>
+</footer>
+
+<script src="/js/site.js" defer></script>
+<script>window.PM = {{ js_data }};</script>
+</body>
+</html>

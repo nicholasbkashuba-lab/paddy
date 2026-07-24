@@ -1,0 +1,499 @@
+/* ============================================================
+   PADDY MAC'S — "The Gilded Snug"
+   Direction: Victorian Irish pub signwriting. Gold leaf on bottle
+   green, etched-glass arches, a slate specials board, an aged menu
+   card. The page is the decoration, because there are no photos yet.
+   ============================================================ */
+
+:root{
+  /* ground — layered dark greens, not flat black */
+  --pitch:    #0A1610;
+  --bottle:   #0F241A;
+  --forest:   #163A26;
+  --moss:     #1D4A31;
+
+  /* brand — sampled directly from the 2021 logo PNG */
+  --kelly:    #29A343;
+  --kelly-lt: #4FC169;
+  --copper:   #E06900;
+
+  /* gilt */
+  --gold:     #D4A537;
+  --gold-lt:  #F3E0A4;
+  --gold-dk:  #8A6A1E;
+  --gold-15:  rgba(212,165,55,.15);
+  --gold-30:  rgba(212,165,55,.30);
+  --gold-55:  rgba(212,165,55,.55);
+
+  /* surfaces */
+  --oxblood:  #4E1519;   /* banquette leather */
+  --slate:    #16211B;   /* chalkboard */
+  --wood:     #2B1A0C;   /* frame */
+  --paper:    #EFE4CA;   /* aged menu card */
+  --ink-p:    #241708;   /* ink on paper */
+
+  --cream:    #F4EDDD;
+  --cream-72: rgba(244,237,221,.72);
+  --cream-48: rgba(244,237,221,.48);
+  --rule:     rgba(244,237,221,.12);
+
+  --display: 'Alfa Slab One', Georgia, serif;
+  --body:    'Archivo', system-ui, -apple-system, sans-serif;
+  --mono:    'DM Mono', ui-monospace, monospace;
+
+  --pad:  clamp(1.15rem, 4.5vw, 4.5rem);
+  --maxw: 1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+body{
+  margin:0;
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.62;
+  color:var(--cream);
+  background:
+    radial-gradient(120% 70% at 50% -5%, rgba(212,165,55,.10), transparent 62%),
+    radial-gradient(90% 60% at 50% 105%, rgba(41,163,67,.09), transparent 60%),
+    var(--pitch);
+  background-attachment:fixed;
+}
+
+/* film-grain / plaster texture over everything ---------------- */
+body::after{
+  content:"";position:fixed;inset:0;z-index:100;pointer-events:none;
+  opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* corner vignette — the room falls off into the dark */
+body::before{
+  content:"";position:fixed;inset:0;z-index:99;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 40%, transparent 52%, rgba(0,0,0,.55) 100%);
+}
+
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad);position:relative;z-index:1}
+
+/* ============================================================
+   TYPE
+   ============================================================ */
+.gilt{
+  color:var(--gold);                 /* fallback */
+  background-image:linear-gradient(174deg,
+    #F7EBC0 0%, #D9AE41 30%, #9C7522 52%, #E7CD82 72%, #C09328 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(212,165,55,.18));
+}
+@supports not (background-clip:text){ .gilt{-webkit-text-fill-color:var(--gold)} }
+
+.h-display{
+  font-family:var(--display);font-weight:400;
+  line-height:.98;letter-spacing:-.012em;margin:0;
+}
+.h-sect{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.9rem,4.4vw,3.2rem);
+  line-height:1.02;letter-spacing:-.012em;margin:0 0 1.1rem;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:.7rem;font-weight:500;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:var(--copper);margin:0 0 1.1rem;
+}
+.eyebrow--gold{color:var(--gold)}
+.lede{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--cream-72);max-width:56ch}
+
+/* ============================================================
+   KNOTWORK — a two-strand Celtic plait, tiled
+   ============================================================ */
+.knotrule{
+  height:20px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='20' viewBox='0 0 60 20'%3E%3Cg fill='none' stroke='%23D4A537' stroke-width='1.5' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M0 10 C 7.5 0, 22.5 0, 30 10 S 52.5 20, 60 10'/%3E%3Cpath d='M0 10 C 7.5 20, 22.5 20, 30 10 S 52.5 0, 60 10'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat:repeat-x;background-position:center;
+}
+.knotrule--fade{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);
+}
+
+/* ============================================================
+   NAV — brass plaque
+   ============================================================ */
+.nav{
+  position:sticky;top:0;z-index:60;
+  background:linear-gradient(180deg, rgba(10,22,16,.96), rgba(10,22,16,.86));
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold-15);
+  box-shadow:0 1px 0 rgba(0,0,0,.6);
+}
+.nav__in{
+  max-width:var(--maxw);margin:0 auto;padding:.8rem var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.nav__mark{font-family:var(--display);font-size:1.1rem;text-decoration:none;letter-spacing:-.01em}
+.nav__links{display:flex;gap:1.85rem;align-items:center}
+.nav__links a{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;color:var(--cream-72);transition:color .2s ease;
+}
+.nav__links a:hover{color:var(--gold-lt)}
+.nav__call{color:var(--copper) !important;letter-spacing:.1em !important}
+.nav__toggle{
+  display:none;background:none;border:1px solid var(--gold-30);color:var(--gold-lt);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.55rem .85rem;border-radius:2px;cursor:pointer;
+}
+@media (max-width:880px){
+  .nav__links{
+    display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;
+    gap:0;align-items:stretch;background:var(--bottle);
+    border-bottom:1px solid var(--gold-15);
+  }
+  .nav__links.is-open{display:flex}
+  .nav__links a{padding:1rem var(--pad);border-top:1px solid var(--rule)}
+  .nav__toggle{display:block}
+}
+
+/* ============================================================
+   NOW STRIP — engraved brass
+   ============================================================ */
+.now{
+  background:
+    linear-gradient(180deg, rgba(212,165,55,.16), rgba(212,165,55,.05) 55%, rgba(0,0,0,.25));
+  border-bottom:1px solid var(--gold-30);
+}
+.now__in{
+  max-width:var(--maxw);margin:0 auto;padding:.62rem var(--pad);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.15rem;
+  font-family:var(--mono);font-size:.79rem;letter-spacing:.05em;
+}
+.now__dot{
+  width:7px;height:7px;border-radius:50%;flex:none;background:var(--kelly-lt);
+  box-shadow:0 0 10px var(--kelly-lt);animation:pulse 2.6s ease-in-out infinite;
+}
+.now__dot.is-shut{background:var(--copper);box-shadow:0 0 10px rgba(224,105,0,.6);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.28}}
+.now__state{font-weight:500;color:var(--gold-lt);text-transform:uppercase;letter-spacing:.14em;font-size:.74rem}
+.now__detail{color:var(--cream-48)}
+.now__detail b{color:var(--gold-lt);font-weight:400}
+
+/* ============================================================
+   HERO — etched-glass arch
+   ============================================================ */
+.hero{padding-block:clamp(2.5rem,6vw,5rem) clamp(3rem,7vw,5.5rem)}
+.arch{
+  position:relative;
+  max-width:900px;margin:0 auto;
+  padding:clamp(2.6rem,6vw,4.5rem) clamp(1.4rem,5vw,4rem) clamp(2.4rem,5vw,3.6rem);
+  text-align:center;
+  border:1px solid var(--gold-30);
+  border-radius:min(50vw,430px) min(50vw,430px) 4px 4px / clamp(180px,34vw,330px) clamp(180px,34vw,330px) 4px 4px;
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(212,165,55,.13), transparent 65%),
+    linear-gradient(180deg, rgba(29,74,49,.45), rgba(10,22,16,.15));
+  box-shadow:inset 0 0 90px rgba(0,0,0,.55), 0 30px 80px -40px #000;
+}
+/* inner hairline, offset — the double-ruled etched-glass look */
+.arch::before{
+  content:"";position:absolute;inset:9px;pointer-events:none;
+  border:1px solid var(--gold-15);
+  border-radius:inherit;
+}
+.arch__logo{width:min(430px,86%);margin:0 auto clamp(1.8rem,4vw,2.6rem)}
+.arch h1{
+  font-size:clamp(2.1rem,6.2vw,4.4rem);
+  margin:0 auto 1.3rem;max-width:14ch;
+}
+.arch__sub{
+  font-size:clamp(1rem,1.7vw,1.2rem);color:var(--cream-72);
+  max-width:48ch;margin:0 auto 2.2rem;
+}
+.arch__cta{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+.arch__est{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold-55);margin:0 0 1.4rem;
+}
+
+/* the hero's gold sweep, once, on load */
+.arch__logo{animation:sheen 2.4s ease-out .3s both}
+@keyframes sheen{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.hero__meta{
+  max-width:900px;margin:2.2rem auto 0;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2.4rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--cream-48);text-align:center;
+}
+.hero__meta b{color:var(--gold-lt);font-weight:400}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.76rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:.95rem 1.6rem;border-radius:2px;text-decoration:none;
+  border:1px solid transparent;transition:all .2s ease;
+}
+.btn--gold{
+  background:linear-gradient(180deg,#E6C158,#B98F26);
+  color:#1A1206;border-color:#E6C158;
+  box-shadow:0 6px 18px -8px rgba(212,165,55,.6);
+}
+.btn--gold:hover{background:linear-gradient(180deg,#F3DC90,#CDA33A)}
+.btn--ghost{border-color:var(--gold-30);color:var(--gold-lt)}
+.btn--ghost:hover{border-color:var(--gold);background:rgba(212,165,55,.09)}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+
+/* ============================================================
+   THE BOARD — slate in a wooden frame
+   ============================================================ */
+.board{padding-block:clamp(2rem,5vw,3.5rem)}
+.board__frame{
+  padding:12px;border-radius:4px;
+  background:
+    repeating-linear-gradient(91deg, rgba(0,0,0,.28) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg,#3A2410,#1E1207);
+  box-shadow:0 26px 60px -32px #000, inset 0 1px 0 rgba(255,255,255,.07);
+}
+.board__slate{
+  background:
+    radial-gradient(70% 55% at 22% 12%, rgba(255,255,255,.055), transparent 62%),
+    radial-gradient(55% 45% at 82% 88%, rgba(255,255,255,.04), transparent 62%),
+    var(--slate);
+  box-shadow:inset 0 0 70px rgba(0,0,0,.85);
+  padding:clamp(1.6rem,4vw,2.6rem);
+}
+.board__title{
+  font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.6rem);
+  text-align:center;color:var(--cream);margin:0 0 .35rem;
+  text-shadow:0 1px 0 rgba(0,0,0,.6);
+}
+.board__sub{
+  text-align:center;font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--cream-48);margin:0 0 1.9rem;
+}
+.board__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(244,237,221,.1)}
+@media (max-width:780px){.board__grid{grid-template-columns:1fr}}
+.chalk{background:var(--slate);padding:1.7rem 1.4rem;text-align:center}
+.chalk__k{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--copper);margin:0 0 .8rem;
+}
+.chalk__t{
+  font-family:var(--display);font-size:1.4rem;margin:0 0 .55rem;
+  color:var(--cream);text-shadow:0 1px 0 rgba(0,0,0,.5);
+}
+.chalk__b{margin:0 0 .9rem;color:var(--cream-72);font-size:.94rem}
+.chalk__d{
+  display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-lt);
+  border-top:1px solid var(--gold-30);padding-top:.6rem;
+}
+
+/* ============================================================
+   MUSIC
+   ============================================================ */
+.music{padding-block:clamp(3rem,7vw,5.5rem)}
+.music__head{text-align:center;margin-bottom:2.4rem}
+.gig{
+  display:grid;grid-template-columns:110px 1fr auto;gap:1.5rem;align-items:baseline;
+  padding:1.5rem .4rem;border-top:1px solid var(--gold-15);
+}
+.gig:last-child{border-bottom:1px solid var(--gold-15)}
+.gig__day{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);
+}
+.gig__act{font-family:var(--display);font-size:1.25rem;line-height:1.15}
+.gig__act small{
+  display:block;font-family:var(--body);font-size:.88rem;font-weight:400;
+  color:var(--cream-48);margin-top:.35rem;
+}
+.gig__time{font-family:var(--mono);font-size:.82rem;color:var(--cream-72);white-space:nowrap}
+.gig.is-tonight{
+  background:linear-gradient(90deg, rgba(224,105,0,.13), transparent 70%);
+  box-shadow:inset 3px 0 0 var(--copper);
+}
+.gig.is-tonight .gig__day{color:var(--copper)}
+@media (max-width:640px){
+  .gig{grid-template-columns:1fr auto;gap:.4rem 1rem}
+  .gig__day{grid-column:1/-1;margin-bottom:.2rem}
+}
+
+/* ============================================================
+   MENU — the one lit surface on the page
+   ============================================================ */
+.menu{padding-block:clamp(3rem,7vw,5.5rem)}
+.menu__card{
+  position:relative;color:var(--ink-p);
+  padding:clamp(1.9rem,5vw,4rem);
+  background:
+    radial-gradient(80% 60% at 15% 8%, rgba(255,255,255,.5), transparent 60%),
+    radial-gradient(70% 60% at 88% 92%, rgba(160,120,60,.16), transparent 60%),
+    var(--paper);
+  box-shadow:0 40px 90px -40px #000, 0 0 0 1px rgba(36,23,8,.15);
+}
+/* letterpress double rule inside the card edge */
+.menu__card::before{
+  content:"";position:absolute;inset:12px;pointer-events:none;
+  border:1px solid rgba(36,23,8,.22);
+}
+.menu__card::after{
+  content:"";position:absolute;inset:17px;pointer-events:none;
+  border:1px solid rgba(36,23,8,.10);
+}
+.menu__inner{position:relative}
+.menu__card .eyebrow{color:#8A6420}
+.menu__card .h-sect{color:var(--ink-p)}
+.menu__card .lede{color:rgba(36,23,8,.72)}
+.menu__head{text-align:center;margin-bottom:2.2rem}
+.menu__head .lede{margin-inline:auto}
+
+.menu__section h3{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;
+  color:#8A6420;text-align:center;margin:0 0 1.4rem;
+}
+.menu__list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 3.4rem}
+@media (max-width:740px){.menu__list{grid-template-columns:1fr}}
+.menu__item{padding:1.05rem 0;border-top:1px solid rgba(36,23,8,.16)}
+.menu__row{display:flex;align-items:baseline;gap:.5rem}
+.menu__name{font-family:var(--display);font-size:1.02rem;line-height:1.3;flex:none;max-width:80%}
+.menu__dots{flex:1;border-bottom:1px dotted rgba(36,23,8,.4);transform:translateY(-4px)}
+.menu__price{font-family:var(--mono);font-size:.9rem;flex:none}
+.menu__desc{margin:.3rem 0 0;font-size:.92rem;color:rgba(36,23,8,.66)}
+
+.menu__foot{margin-top:2.4rem;text-align:center}
+.menu__card .btn--gold{
+  background:linear-gradient(180deg,#2E1B0A,#150C04);color:var(--paper);border-color:#2E1B0A;
+  box-shadow:none;
+}
+.menu__card .btn--gold:hover{background:linear-gradient(180deg,#1E7A3A,#12602C);border-color:#1E7A3A}
+.menu__note{
+  display:block;margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.06em;color:rgba(36,23,8,.55);
+}
+
+/* ============================================================
+   STORY
+   ============================================================ */
+.story{padding-block:clamp(3rem,7vw,5.5rem)}
+.story__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+@media (max-width:880px){.story__grid{grid-template-columns:1fr}}
+.story p{color:var(--cream-72)}
+
+.pull{
+  margin-top:2.2rem;padding:1.7rem 1.6rem;
+  background:linear-gradient(180deg, rgba(78,21,25,.75), rgba(78,21,25,.35));
+  border-left:3px solid var(--copper);
+  box-shadow:inset 0 0 40px rgba(0,0,0,.4);
+}
+.pull q{
+  display:block;quotes:none;font-family:var(--display);
+  font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.25;color:var(--cream);
+}
+.pull cite{
+  display:block;margin-top:.85rem;font-style:normal;font-family:var(--mono);
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-48);
+}
+
+/* framed image / placeholder — gilt picture frame ------------- */
+.frame{
+  padding:10px;
+  background:linear-gradient(150deg,#E3C368,#8A6A1E 40%,#F0DA9A 62%,#7A5C18);
+  box-shadow:0 26px 60px -34px #000;
+}
+.frame__in{
+  background:var(--bottle);position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;
+}
+.frame__in img{width:100%;height:100%;object-fit:cover}
+.frame--tall .frame__in{aspect-ratio:4/5}
+.frame--square .frame__in{aspect-ratio:1}
+.shot{
+  width:100%;padding:1.15rem;
+  background:
+    repeating-linear-gradient(135deg, rgba(212,165,55,.05) 0 10px, transparent 10px 20px),
+    var(--bottle);
+  min-height:100%;display:flex;align-items:flex-end;
+}
+.shot__label{font-family:var(--mono);font-size:.71rem;line-height:1.5;color:var(--cream-72);margin:0}
+.shot__label b{
+  display:block;font-weight:400;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:.4rem;
+}
+
+/* ============================================================
+   PARTIES
+   ============================================================ */
+.parties{padding-block:clamp(3rem,7vw,5.5rem)}
+.parties__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+@media (max-width:880px){.parties__grid{grid-template-columns:1fr}}
+.parties ul{list-style:none;padding:0;margin:1.7rem 0 2.1rem}
+.parties li{
+  position:relative;padding:.78rem 0 .78rem 1.7rem;
+  border-top:1px solid var(--gold-15);color:var(--cream-72);font-size:.97rem;
+}
+.parties li::before{
+  content:"";position:absolute;left:0;top:1.28rem;width:7px;height:7px;
+  background:var(--gold);transform:rotate(45deg);
+}
+.parties__cta{display:flex;flex-wrap:wrap;gap:.75rem}
+
+/* ============================================================
+   FEED
+   ============================================================ */
+.feed{padding-block:clamp(2.5rem,6vw,4.5rem)}
+.feed__head{text-align:center;margin-bottom:2.2rem}
+.feed__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media (max-width:880px){.feed__grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{
+  border-top:1px solid var(--gold-15);
+  background:linear-gradient(180deg, rgba(15,36,26,.85), var(--pitch));
+  padding-block:clamp(2.8rem,6vw,4.5rem) 1.8rem;
+}
+.foot__grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:2.6rem}
+@media (max-width:860px){.foot__grid{grid-template-columns:1fr}}
+.foot h5{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 1.1rem;font-weight:400;
+}
+.foot__logo{width:230px;margin-bottom:1.3rem}
+.foot p,.foot address{margin:0 0 .5rem;font-style:normal;color:var(--cream-72);font-size:.95rem}
+.foot a{text-decoration:none;transition:color .2s ease}
+.foot a:hover{color:var(--gold-lt)}
+.hours{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:.83rem}
+.hours li{
+  display:flex;justify-content:space-between;gap:1.2rem;padding:.44rem 0;
+  border-bottom:1px solid var(--rule);color:var(--cream-72);
+}
+.hours li.is-today{color:var(--gold-lt)}
+.hours li.is-today span:first-child::before{content:"▸ ";color:var(--copper)}
+.foot__base{
+  max-width:var(--maxw);margin:2.8rem auto 0;padding:1.4rem var(--pad) 0;
+  border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;
+  justify-content:space-between;gap:.7rem;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--cream-48);
+}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+.rv.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}}
