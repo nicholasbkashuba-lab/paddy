@@ -31,7 +31,7 @@ templates/index.html  {{ token }} placeholders
 static/css/style.css  the entire design system
 static/js/site.js     live open/closed status, nav, reveals
 static/fonts/         self-hosted woff2 subsets — no Google Fonts requests
-static/img/og.png     the social share card (1200×630)
+static/img/og.jpg     the social share card (1200×630)
 build.py              fills tokens, writes dist/
 dist/                 generated — never edit, never commit
 ```
@@ -166,7 +166,7 @@ who then connects their own Vercel. Nothing in this repo is account-specific.
 - Keep the page usable without JavaScript. The scroll reveals are gated behind an
   `html.js` class set by an inline script — with JS off, nothing is hidden. Keep it
   that way.
-- `static/img/og.png` is the share card, rendered in the site's own styles at
+- `static/img/og.jpg` is the share card, rendered in the site's own styles at
   1200×630. Re-render it if the tagline or logo changes.
 - Every interactive element keeps a visible focus ring, and `prefers-reduced-motion` is
   respected — check both before shipping a change.
