@@ -89,10 +89,15 @@ def build_gigs(gigs):
     site.js re-labels tonight's row on load."""
     out = []
     for g in sorted(gigs, key=lambda x: x["dow"]):
+        if g["act"].upper() == "TBC":
+            # Honest but not unfinished-looking while the client confirms acts.
+            act = '<span class="gig__tba">Line-up to be announced</span>'
+        else:
+            act = esc(g["act"])
         out.append(
             f'      <div class="gig rv" data-dow="{g["dow"]}">\n'
             f'        <div class="gig__day">{esc(DAYS[g["dow"]])}</div>\n'
-            f'        <div class="gig__act">{esc(g["act"])}<small>{esc(g["note"])}</small></div>\n'
+            f'        <div class="gig__act">{act}<small>{esc(g["note"])}</small></div>\n'
             f'        <div class="gig__time">{esc(g["time"])}</div>\n'
             "      </div>"
         )
@@ -211,9 +216,16 @@ def build():
     if menu.get("full_menu_url"):
         menu_button = f'<a class="btn btn--gold" href="{esc(menu["full_menu_url"])}">Full menu</a>'
     else:
-        menu_button = '<a class="btn btn--gold" aria-disabled="true" href="#">Full menu — link needed</a>'
+        # No menu link yet — send people to the phone rather than a dead button.
+        menu_button = (
+            f'<a class="btn btn--gold" href="tel:{esc(site["phone_href"])}">'
+            f'Ask about today’s menu — {esc(site["phone_display"])}</a>'
+        )
 
-    story_html = "\n".join(f"        <p>{esc(p)}</p>" for p in site["story"])
+    story_html = "\n".join(
+        f'        <p class="dropcap">{esc(p)}</p>' if i == 0 else f"        <p>{esc(p)}</p>"
+        for i, p in enumerate(site["story"])
+    )
     parties_html = "\n".join(f"          <li>{esc(p)}</li>" for p in site["parties"])
 
     js_data = json.dumps({
@@ -262,7 +274,7 @@ def build():
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True)
     (DIST / "index.html").write_text(page)
-    for sub in ("css", "js", "img"):
+    for sub in ("css", "js", "img", "fonts"):
         src = STATIC / sub
         if src.exists():
             shutil.copytree(src, DIST / sub)

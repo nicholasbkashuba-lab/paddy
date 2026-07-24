@@ -30,6 +30,8 @@ content/menu.json     menu items, no prices yet                  ← edit this
 templates/index.html  {{ token }} placeholders
 static/css/style.css  the entire design system
 static/js/site.js     live open/closed status, nav, reveals
+static/fonts/         self-hosted woff2 subsets — no Google Fonts requests
+static/img/og.png     the social share card (1200×630)
 build.py              fills tokens, writes dist/
 dist/                 generated — never edit, never commit
 ```
@@ -52,11 +54,19 @@ itself has to be the decoration.
 - Ground is layered bottle greens with a fixed grain overlay and a corner vignette —
   never flat black.
 - Display type is gilded, not white. `.gilt` applies a gold-leaf gradient via
-  `background-clip: text`, with a solid-gold fallback.
+  `background-clip: text`, with a solid-gold fallback. A sheen layer sweeps across it
+  once — on load for the hero, on reveal for section headings (`@keyframes gleam`).
 - Structural motifs are borrowed from the real thing: an etched-glass **arch** around
-  the hero, a slate **chalkboard in a wooden frame** for the standing offers, a **gilt
-  picture frame** around every photo slot, an aged **paper menu card**, and a two-strand
-  Celtic **plait** as the section rule (tiled SVG in `.knotrule`).
+  the hero (gilt **keystone** at the crown, filigree curls in the lower corners,
+  **etched pint windows** flanking it at ≥1200px), a slate **chalkboard in a wooden
+  frame** with brass corner screws and a hand-drawn chalk underline, a **gilt picture
+  frame** around every photo slot, an aged **paper menu card** (laid-paper grain, a
+  triquetra watermark, a letterpress double rule), and a two-strand Celtic **plait**
+  as the section rule (tiled SVG in `.knotrule`).
+- Smaller flourishes carry the same voice: a gilded **drop cap** on the first story
+  paragraph (`.dropcap`, class set by `build.py`), stitched leather on the pull quote,
+  **shamrock bullets** in the parties list, the feed frames hung slightly **askew**
+  (they straighten on hover), and a big gilt **Sláinte!** signing off the footer.
 - The menu card is the only light surface on the page. That is deliberate — it should
   land like something handed to you across the bar. Don't add a second one.
 
@@ -74,8 +84,13 @@ itself has to be the decoration.
 ### Type
 
 - **Alfa Slab One** — display. Hand-painted pub signwriting. Headings and dish names.
-- **Archivo** — body and UI.
+- **Archivo** — body and UI (variable weight 400–700).
 - **DM Mono** — eyebrows, hours, prices, the status strip. The chalkboard voice.
+
+All three are **self-hosted** as latin-subset woff2 in `static/fonts/` and preloaded
+from the template — no Google Fonts requests, so the page renders identically offline
+and there's no third-party dependency at hand-off. If you add a family or weight,
+download the subset and add an `@font-face` rather than reintroducing the CDN.
 
 Do **not** introduce Playfair Display. First Rehabilitation uses it and these two sites
 should not look related.
@@ -148,7 +163,11 @@ who then connects their own Vercel. Nothing in this repo is account-specific.
 
 - Don't invent facts about the business. Hours, prices, band names and happy hour times
   all come from the client. If it isn't in `content/`, ask rather than fill it in.
-- Keep the page usable without JavaScript.
+- Keep the page usable without JavaScript. The scroll reveals are gated behind an
+  `html.js` class set by an inline script — with JS off, nothing is hidden. Keep it
+  that way.
+- `static/img/og.png` is the share card, rendered in the site's own styles at
+  1200×630. Re-render it if the tagline or logo changes.
 - Every interactive element keeps a visible focus ring, and `prefers-reduced-motion` is
   respected — check both before shipping a change.
 - The gold gradient on text needs a fallback colour. `.gilt` sets one. Don't strip it.

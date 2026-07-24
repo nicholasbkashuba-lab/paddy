@@ -6,7 +6,7 @@
   "note": "Vegetarian, vegan and gluten-free options throughout. Guinness poured properly.",
 
   "full_menu_url": "",
-  "_TODO": "full_menu_url is empty, so the 'Full menu' button renders disabled. Point it at a PDF in static/ or a /menu page.",
+  "_TODO": "full_menu_url is empty, so the card falls back to an 'Ask about today's menu' call button. Point it at a PDF in static/ or a /menu page to get the real Full menu button.",
 
   "sections": [
     {
